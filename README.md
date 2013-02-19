@@ -1,5 +1,7 @@
 # AFLinkedInOAuth1Client
 
+An AFOAuth1Client subclass for easily authenticating with LinkedIn.
+
 ## Instructions
 
 Register your application to [launch from a custom URL scheme](http://iphonedevelopertips.com/cocoa/launching-your-own-application-via-a-custom-url-scheme.html), and use that with the path `/success` as your callback URL.
@@ -13,7 +15,7 @@ AFLinkedInOAuth1Client *linkedinClient = [[AFLinkedInOAuth1Client alloc] initWit
     
 [linkedinClient authorizeUsingOAuthWithRequestTokenPath:@"uas/oauth/requestToken"
                                   userAuthorizationPath:@"uas/oauth/authorize"
-                                            callbackURL:[NSURL URLWithString:@"givingtree://success"]
+                                            callbackURL:[NSURL URLWithString:@"x-yourscheme://success"]
                                         accessTokenPath:@"uas/oauth/accessToken"
                                            accessMethod:@"POST"
                                                 success:^(AFOAuth1Token *accessToken) {
