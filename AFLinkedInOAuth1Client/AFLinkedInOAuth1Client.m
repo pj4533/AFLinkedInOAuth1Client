@@ -7,6 +7,7 @@
 //
 
 #import "AFLinkedInOAuth1Client.h"
+#import "AFJSONRequestOperation.h"
 
 @implementation AFLinkedInOAuth1Client
 
@@ -17,7 +18,18 @@
                                 parameters:(NSDictionary *)parameters
 {
     NSMutableURLRequest *request = [super requestWithMethod:method path:path parameters:parameters];
-    [request setValue:@"text/xml" forHTTPHeaderField:@"Content-Type"];    
+
+    
+    // if we are doing oauth then set the content type to xml,
+    // otherwise add accept for text/plain so we process the JSON correctly.
+    NSRange textRange;
+    textRange =[path rangeOfString:@"oauth"];
+    if(textRange.location != NSNotFound) {
+        [request setValue:@"text/xml" forHTTPHeaderField:@"Content-Type"];
+    } else {
+        [request setValue:@"text/plain" forHTTPHeaderField:@"Accept"];
+    }
+
     return request;
 }
 
@@ -29,6 +41,22 @@
 {
     self.accessToken = requestToken;
     [super acquireOAuthAccessTokenWithPath:path requestToken:requestToken accessMethod:accessMethod success:success failure:failure];
+}
+
+- (id)initWithBaseURL:(NSURL *)url
+                  key:(NSString *)clientID
+               secret:(NSString *)secret {
+    self = [super initWithBaseURL:url key:clientID secret:secret];
+    if (!self) {
+        return nil;
+    }
+    
+    [AFJSONRequestOperation addAcceptableContentTypes:[NSSet setWithObject:@"text/plain"]];
+    
+    [self registerHTTPOperationClass:[AFJSONRequestOperation class]];
+    [self setDefaultHeader:@"x-li-format" value:@"json"];
+
+    return self;
 }
 
 @end
