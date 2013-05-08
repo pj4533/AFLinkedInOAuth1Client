@@ -1,4 +1,4 @@
 platform :ios, "5.0"
-pod "AFNetworking"
-pod "AFOAuth1Client"
-pod "AFLinkedInOAuth1Client"
+#pod "AFNetworking"
+#pod "AFOAuth1Client"
+pod "AFLinkedInOAuth1Client", :path => "../"

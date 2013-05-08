@@ -11,5 +11,5 @@ Pod::Spec.new do |s|
   s.source_files = 'AFLinkedInOAuth1Client'
   s.requires_arc = true  
   s.ios.deployment_target = '5.0'
-  s.dependency 'AFOAuth1Client', '>= 0.1.0'
+  s.dependency 'AFOAuth1Client', '~> 0.2.0'
 end

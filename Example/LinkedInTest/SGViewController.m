@@ -46,7 +46,8 @@
                                                 callbackURL:[NSURL URLWithString:@"linkedintest://success"]
                                             accessTokenPath:@"uas/oauth/accessToken"
                                                accessMethod:@"POST"
-                                                    success:^(AFOAuth1Token *accessToken) {
+                                                   scope:nil
+                                                    success:^(AFOAuth1Token *accessToken, id responseObject) {
                                                         
                                                         [oauthClient getPath:@"v1/people/~:(id,first-name,last-name,headline)" parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
 
